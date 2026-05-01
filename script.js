@@ -76,6 +76,36 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// ✅ Google Analytics - Demo Button Click Tracking
+const demoButtons = document.querySelectorAll(".demo-btn");
+
+demoButtons.forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    if (typeof gtag === "function") {
+      gtag("event", "demo_click", {
+        event_category: "Demo",
+        event_label: btn.closest(".service-card")?.querySelector("h3")?.innerText || `Demo ${index + 1}`,
+        link_url: btn.href
+      });
+    }
+  });
+});
+
+// ✅ Google Analytics - Contact Icon Click Tracking
+const contactLinks = document.querySelectorAll(".contact-icons a");
+
+contactLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (typeof gtag === "function") {
+      gtag("event", "contact_click", {
+        event_category: "Contact",
+        event_label: link.className,
+        link_url: link.href
+      });
+    }
+  });
+});
+
 topBtn.addEventListener("click", () => {
   window.scrollTo({
     top: 0,
